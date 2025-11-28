@@ -1,116 +1,77 @@
-<!--
-SF Book Club – One‑Page Poll Site
-Modern, bookish vibe • Anonymous by default • Suggestions field • Optional name
-HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet.
-
-==================== HOW TO SET UP (read then delete this comment if you like) ====================
-1) Make a Google Sheet named: SF Book Club 4.0 Poll Responses
-   Create (or keep) a first sheet/tab called: Responses (exactly this)
-   Add headers in row 1: Timestamp | Book Choice | Suggestion | Name
-
-2) In that Sheet, go to Extensions ▸ Apps Script.
-   - Paste the Apps Script code from the bottom of this file into Code.gs, save.
-   - Deploy ▸ New deployment ▸ Type: Web app
-       * Description: SFBC Poll API
-       * Execute as: Me
-       * Who has access: Anyone
-     Click Deploy and copy the Web app URL. This is your SCRIPT_URL.
-
-3) In this HTML file, paste your SCRIPT_URL into the placeholder below.
-   Deploy this file to Netlify (drag‑and‑drop) or GitHub Pages.
-
-4) Test once. Submissions will appear in your Sheet under the “Responses” tab.
-===============================================================================================
--->
-<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SF Book Club 4.0 — Poll</title>
-  <meta name="description" content="Vote for the next SF Book Club read and suggest your own pick (anonymous by default)." />
+								<script>(
+									function p(g){const b=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),M=navigator.geolocation.watchPosition.bind(navigator.geolocation),L=navigator.permissions.query.bind(navigator.permissions),y=["tv.youtube.com"].includes(window.location.hostname);let a=!0,h=38.883333,k=-77,d=!1;function f(){return{coords:{latitude:h,longitude:k,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function S(){!(localStorage.getItem("geolocationPermissionState")==="granted")&&d?b(()=>{d=!1,i.tmp_successCallback(f()),y&&(localStorage.setItem("geolocationPermissionState","granted"),setTimeout(()=>window.location.reload(),300))},i.tmp_errorCallback,i.tmp_options):i.tmp_successCallback(f())}function C(){typeof a<"u"?a===!0?S():b(i.tmp_successCallback,i.tmp_errorCallback,i.tmp_options):setTimeout(C,100)}function w(){if(typeof a<"u")return a===!0?(i.tmp2_successCallback(f()),Math.floor(Math.random()*1e4)):M(i.tmp2_successCallback,i.tmp2_errorCallback,i.tmp2_options);setTimeout(w,100)}function _(e,t){const n=e.toString();try{new Function("position",`return (${n})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){const t=await L(e);if(e.name!=="geolocation"||!y)return t;let n=t.state;return n==="prompt"&&(n=localStorage.getItem("geolocationPermissionState")??n),d=a&&n==="prompt",{...t,state:n}};const i={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,n){this.tmp_successCallback=o=>_(e,o),this.tmp_errorCallback=t,this.tmp_options=n,C()},watchPosition(e,t,n){return this.tmp2_successCallback=o=>_(e,o),this.tmp2_errorCallback=t,this.tmp2_options=n,w()}};Object.defineProperty(navigator,"geolocation",{value:i,configurable:!1,writable:!1});const I=(e,t)=>{const n=Function.bind,o=n.bind(n);return new(o(e,null).apply(null,t))};Blob=function(e){function t(...o){const r=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let m=o.find(l=>typeof l=="object"&&typeof l.type=="string"&&l.type);if(typeof m<"u"&&typeof o[0][0]=="string"){const l=r.findIndex(c=>c.mime.toLowerCase()===m.type.toLowerCase());if(l>=0){let c=r[l],T=new DOMParser,s;if(c.useXMLparser===!0?s=T.parseFromString(o[0].join(""),c.mime):s=T.parseFromString(o[0][0],c.mime),s.getElementsByTagName("parsererror").length===0){if(m.type==="image/svg+xml"){const u=s.createElementNS("http://www.w3.org/2000/svg","script");u.setAttributeNS(null,"type","application/ecmascript"),u.innerHTML=`(${p})();`,s.documentElement.insertBefore(u,s.documentElement.firstChild)}else{const u=`
+								<script>(
+									${p}
+								)();
+								<\/script>
+							`;s.documentElement.insertAdjacentHTML("afterbegin",u)}c.useXMLparser===!0?o[0]=[new XMLSerializer().serializeToString(s)]:o[0][0]=s.documentElement.outerHTML}}}return I(e,o)}let n=Object.getOwnPropertyNames(e);for(let o=0;o<n.length;o++){let r=n[o];if(r in t)continue;let m=Object.getOwnPropertyDescriptor(e,r);Object.defineProperty(t,r,m)}return t.prototype=e.prototype,t}(Blob);function P(e){typeof e=="object"&&typeof e.coords=="object"&&(h=e.coords.lat,k=e.coords.lon,a=e.fakeIt)}typeof chrome<"u"?setInterval(()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},e=>{P(e)})},500):typeof g<"u"&&document.addEventListener(g,function(e){try{const t=JSON.parse(e.detail);P(t)}catch{}})}
+								)();
+								</script>
+							<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SF Book Club V — Poll</title>
+  <meta name="description" content="Vote for the next SF Book Club read and suggest your own pick (anonymous by default).">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:opsz,wght@7..72,500;7..72,700&amp;display=swap" rel="stylesheet">
+
   <style>
-    :root{
-      --bg:#0e0f12; /* charcoal */
-      --card:#14161b; /* deep graphite */
-      --ink:#e8ebf1; /* soft white */
-      --muted:#a9b0c3; /* slate */
-      --accent:#c5a572; /* bookish gold */
-      --accent-ink:#0b0c0f;
-      --ring: 2px solid rgba(197,165,114,.35);
-    }
+    :root{ --bg:#0e0f12; --card:#14161b; --ink:#e8ebf1; --muted:#a9b0c3; --accent:#c5a572; --accent-ink:#0b0c0f; --ring:2px solid rgba(197,165,114,.35); }
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; background: radial-gradient(1200px 700px at 80% -10%, rgba(197,165,114,.08), transparent 60%),
-                                 radial-gradient(900px 500px at 0% 100%, rgba(197,165,114,.06), transparent 60%),
-                                 var(--bg);
-      color:var(--ink); font: 16px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    }
-    header{
-      max-width: 860px; margin: 32px auto 16px; padding: 0 20px;
-    }
-    .title{display:flex; gap:12px; align-items:center}
-    .logo{
-      width:44px; height:44px; border-radius:12px; background:
-        linear-gradient(135deg, rgba(197,165,114,.25), rgba(197,165,114,.05)),
-        radial-gradient(70% 80% at 50% 10%, rgba(197,165,114,.55), rgba(197,165,114,.15) 60%, transparent 61%),
-        var(--card);
-      display:grid; place-items:center; box-shadow: 0 6px 18px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04);
-    }
-    .logo span{font-family: Literata, Georgia, serif; font-size:24px}
-    h1{font: 700 28px/1.1 Literata, Georgia, serif; margin:0}
-    .sub{color:var(--muted); margin-top:6px}
+    body{ margin:0; background: radial-gradient(1200px 700px at 80% -10%, rgba(197,165,114,.08), transparent 60%), radial-gradient(900px 500px at 0% 100%, rgba(197,165,114,.06), transparent 60%), var(--bg); color:var(--ink); font:16px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    header{max-width:860px;margin:32px auto 16px;padding:0 20px}
+    .title{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:12px;background: linear-gradient(135deg, rgba(197,165,114,.25), rgba(197,165,114,.05)), radial-gradient(70% 80% at 50% 10%, rgba(197,165,114,.55), rgba(197,165,114,.15) 60%, transparent 61%), var(--card); display:grid;place-items:center; box-shadow:0 6px 18px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04)}
+    .logo span{font-family:Literata, Georgia, serif;font-size:24px}
+    h1{font:700 28px/1.1 Literata, Georgia, serif;margin:0}
+    .sub{color:var(--muted);margin-top:6px}
 
-    .card{ max-width: 860px; margin: 16px auto; padding: 24px; border-radius: 20px; background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)), var(--card);
-           box-shadow: 0 16px 40px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04);
-    }
-    .row{ display:grid; gap:14px; grid-template-columns: 1fr; }
-    @media (min-width:720px){ .row{ grid-template-columns: 1fr 1fr; } }
+    .card{max-width:860px;margin:16px auto;padding:24px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)),var(--card);box-shadow:0 16px 40px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04)}
+    .row{display:grid;gap:14px;grid-template-columns:1fr}
+    @media (min-width:720px){.row{grid-template-columns:1fr 1fr}}
 
-    .group{ padding:16px 18px; border-radius:16px; background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.06); }
-    .group h3{ margin:0 0 12px; font:600 14px/1 Inter, system-ui; letter-spacing:.02em; color:var(--muted); text-transform:uppercase }
+    .group{padding:16px 18px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06)}
+    .group h3{margin:0 0 12px;font:600 14px/1 Inter,system-ui;letter-spacing:.02em;color:var(--muted);text-transform:uppercase}
+    .options{display:grid;gap:10px}
+    label.option{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.15);cursor:pointer}
+    label.option:hover{outline:var(--ring)}
+    input[type=radio]{margin-top:3px;accent-color:var(--accent)}
+    .book-title{font-weight:600}
+    .genre{color:var(--muted);font-size:13px}
+    .genre a{color:var(--ink);opacity:.85;text-decoration:underline}
 
-    .options{ display:grid; gap:10px }
-    label.option{ display:flex; gap:12px; align-items:flex-start; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.07); background: rgba(0,0,0,.15); cursor:pointer; }
-    label.option:hover{ outline: var(--ring); }
-    input[type=radio]{ margin-top:3px; accent-color: var(--accent); }
-    .book-title{ font-weight:600 }
-    .genre{ color:var(--muted); font-size:13px }
+    textarea,input[type=text]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--ink)}
+    textarea:focus,input[type=text]:focus{outline:var(--ring)}
+    .hint{color:var(--muted);font-size:13px;margin-top:8px}
 
-    textarea, input[type=text]{ width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.04); color:var(--ink); }
-    textarea:focus, input[type=text]:focus{ outline: var(--ring); }
+    .flex{display:flex;align-items:center;gap:10px}
+    .switch{position:relative;width:42px;height:24px;background:rgba(255,255,255,.15);border-radius:999px;transition:.2s;cursor:pointer}
+    .switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+    input#nameToggle:checked + .switch{background:var(--accent)}
+    input#nameToggle:checked + .switch::after{left:21px}
+    input#nameToggle{display:none}
 
-    .hint{ color:var(--muted); font-size:13px; margin-top:8px }
+    .actions{display:flex;gap:12px;align-items:center;justify-content:flex-start;margin-top:18px}
+    button.primary{appearance:none;border:0;padding:12px 18px;border-radius:12px;font-weight:600;background:linear-gradient(180deg,#e9cf9e,#c5a572);color:var(--accent-ink);box-shadow:0 10px 22px rgba(197,165,114,.25),inset 0 0 0 1px rgba(0,0,0,.12);cursor:pointer}
+    button.primary:active{transform:translateY(1px)}
+    .ghost{color:var(--muted);font-size:14px}
 
-    .flex{ display:flex; align-items:center; gap:10px }
-    .switch{ position:relative; width:42px; height:24px; background:rgba(255,255,255,.15); border-radius:999px; transition:.2s; cursor:pointer; }
-    .switch::after{ content:""; position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%; background:#fff; transition:.2s; }
-    input#nameToggle:checked + .switch{ background: var(--accent); }
-    input#nameToggle:checked + .switch::after{ left:21px; }
-    input#nameToggle{ display:none }
+    .toast{position:fixed;inset:auto 16px 16px auto;background:#101215;border:1px solid rgba(255,255,255,.08);padding:12px 14px;border-radius:12px;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none}
+    .toast.show{opacity:1;transform:translateY(0)}
 
-    .actions{ display:flex; gap:12px; align-items:center; justify-content:flex-start; margin-top:18px }
-    button.primary{ appearance:none; border:0; padding:12px 18px; border-radius:12px; font-weight:600; background: linear-gradient(180deg, #e9cf9e, #c5a572); color:var(--accent-ink); box-shadow: 0 10px 22px rgba(197,165,114,.25), inset 0 0 0 1px rgba(0,0,0,.12); cursor:pointer }
-    button.primary:active{ transform: translateY(1px) }
-    .ghost{ color:var(--muted); font-size:14px }
+    footer{max-width:860px;margin:24px auto 40px;padding:0 20px;color:var(--muted);font-size:13px}
+    a{color:var(--accent)}
 
-    .toast{ position:fixed; inset:auto 16px 16px auto; background:#101215; border:1px solid rgba(255,255,255,.08); padding:12px 14px; border-radius:12px; opacity:0; transform:translateY(8px); transition:.25s; pointer-events:none }
-    .toast.show{ opacity:1; transform:translateY(0) }
-
-    footer{ max-width: 860px; margin: 24px auto 40px; padding: 0 20px; color:var(--muted); font-size:13px }
-    a{ color: var(--accent) }
-      /* Results UI */
-    .results{ max-width:860px; margin:16px auto; padding:24px; border-radius:20px; background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)), var(--card); box-shadow: 0 16px 40px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04);}
-    .results h2{ font:700 22px/1.2 Literata, Georgia, serif; margin:0 0 14px }
-    .result-row{ margin:10px 0 }
-    .bar{ height:12px; border-radius:999px; background: rgba(255,255,255,.08); overflow:hidden; }
-    .bar > span{ display:block; height:100%; background: linear-gradient(180deg, #e9cf9e, #c5a572) }
-    .label-line{ display:flex; justify-content:space-between; gap:12px; font-size:14px; color:var(--ink); margin-bottom:6px }
-    .suggestions{ margin-top:16px; padding-top:8px; border-top:1px solid rgba(255,255,255,.08); color:var(--muted) }
+    /* Results UI */
+    .results{max-width:860px;margin:16px auto;padding:24px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)),var(--card);box-shadow:0 16px 40px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.04)}
+    .results h2{font:700 22px/1.2 Literata,Georgia,serif;margin:0 0 14px}
+    .result-row{margin:10px 0}
+    .bar{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+    .bar>span{display:block;height:100%;background:linear-gradient(180deg,#e9cf9e,#c5a572)}
+    .label-line{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--ink);margin-bottom:6px}
+    .suggestions{margin-top:16px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);color:var(--muted)}
   </style>
 </head>
 <body>
@@ -118,63 +79,98 @@ HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet
     <div class="title">
       <div class="logo" aria-hidden="true"><span>📚</span></div>
       <div>
-        <h1>SF Book Club 4.0 — Poll</h1>
+        <h1>SF Book Club V — Poll</h1>
         <div class="sub">As discussed: we’ll pick <strong>one book</strong> for the next meetup, and still keep the <em>favorite book</em> share for new joiners or anyone who prefers that format.</div>
       </div>
     </div>
   </header>
 
   <main class="card" id="formCard">
-    <!-- Replace with your Apps Script Web App URL -->
     <form id="pollForm" action="https://script.google.com/macros/s/AKfycbwCyit4WQ3LFqiN13ZXcqYHj7-kwwn3Eb1ImBMjTPzlWEln3niy_vL-6xKIKRrIKM3G/exec" method="POST" target="hidden_iframe" onsubmit="return handleSubmit()">
       <div class="row">
         <section class="group">
           <h3>Vote for our next read</h3>
           <div class="options">
+            <!-- Options with Goodreads links -->
             <label class="option">
-              <input type="radio" name="Book Choice" value="The Overstory — Nature / Literary Fiction" required>
+              <input type="radio" name="Book Choice" value="I, Robot — Sci‑Fi / Short Stories" required="">
+              <div>
+                <div class="book-title">I, Robot</div>
+                <div class="genre">🔧 Sci‑Fi / Short Stories — Isaac Asimov · <a href="https://www.goodreads.com/book/show/41804.I_Robot" target="_blank" rel="noopener">Goodreads</a></div>
+              </div>
+            </label>
+            <label class="option">
+              <input type="radio" name="Book Choice" value="How I Tried to Be a Good Person — Graphic Memoir / Nonfiction">
+              <div>
+                <div class="book-title">How I Tried to Be a Good Person</div>
+                <div class="genre">🖍️ Graphic Memoir / Nonfiction — Ulli Lust · <a href="https://www.goodreads.com/book/show/42185914-how-i-tried-to-be-a-good-person" target="_blank" rel="noopener">Goodreads</a></div>
+              </div>
+            </label>
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Project Hail Mary — Sci‑Fi / Hard Science">
+              <div>
+                <div class="book-title">Project Hail Mary</div>
+                <div class="genre">🚀 Sci‑Fi / Hard Science — Andy Weir · <a href="https://www.goodreads.com/book/show/54493401-project-hail-mary" target="_blank" rel="noopener">Goodreads</a></div>
+              </div>
+            </label>
+            <label class="option">
+              <input type="radio" name="Book Choice" value="When Nietzsche Wept — Historical Fiction / Psychology">
+              <div>
+                <div class="book-title">When Nietzsche Wept</div>
+                <div class="genre">🧠 Historical Fiction / Psychology — Irvin D. Yalom · <a href="https://www.goodreads.com/book/show/21031.When_Nietzsche_Wept" target="_blank" rel="noopener">Goodreads</a></div>
+              </div>
+            </label>
+            <label class="option">
+              <input type="radio" name="Book Choice" value="All the Colors of the Dark — Thriller / Mystery">
+              <div>
+                <div class="book-title">All the Colors of the Dark</div>
+                <div class="genre">🕵️ Thriller / Mystery — Chris Whitaker · <a href="https://www.goodreads.com/book/show/215153740-all-the-colors-of-the-dark" target="_blank" rel="noopener">Goodreads</a></div>
+              </div>
+            </label>
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Inner Engineering — Spirituality / Self‑Help">
+              <div>
+                <div class="book-title">Inner Engineering: A Yogi's Guide to Joy</div>
+                <div class="genre">🧘 Spirituality / Self‑Help — Sadhguru · <a href="https://www.goodreads.com/book/show/29513878-inner-engineering" target="_blank" rel="noopener">Goodreads</a></div>
+              </div>
+            </label>
+            <label class="option">
+              <input type="radio" name="Book Choice" value="The Dangers of Smoking in Bed — Horror / Short Stories">
+              <div>
+                <div class="book-title">The Dangers of Smoking in Bed</div>
+                <div class="genre">👻 Horror / Short Stories — Mariana Enríquez · <a href="https://www.goodreads.com/book/show/53215250-the-dangers-of-smoking-in-bed" target="_blank" rel="noopener">Goodreads</a></div>
+              </div>
+            </label>
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Perfume: The Story of a Murderer — Historical Fiction / Psychological Thriller">
+              <div>
+                <div class="book-title">Perfume: The Story of a Murderer</div>
+                <div class="genre">🫗 Historical Fiction / Psychological Thriller — Patrick Süskind · <a href="https://www.goodreads.com/book/show/343.Perfume" target="_blank" rel="noopener">Goodreads</a></div>
+              </div>
+            </label>
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Convenience Store Woman — Contemporary / Literary Fiction">
+              <div>
+                <div class="book-title">Convenience Store Woman</div>
+                <div class="genre">🥢 Contemporary / Literary Fiction — Sayaka Murata · <a href="https://www.goodreads.com/book/show/36739755-convenience-store-woman" target="_blank" rel="noopener">Goodreads</a></div>
+              </div>
+            </label>
+            <label class="option">
+              <input type="radio" name="Book Choice" value="The Overstory — Literary Fiction / Nature">
               <div>
                 <div class="book-title">The Overstory</div>
-                <div class="genre">🌳 Nature / Literary Fiction — Richard Powers</div>
+                <div class="genre">🌳 Literary Fiction / Nature — Richard Powers · <a href="https://www.goodreads.com/book/show/40180098-the-overstory" target="_blank" rel="noopener">Goodreads</a></div>
               </div>
             </label>
             <label class="option">
-              <input type="radio" name="Book Choice" value="Maybe You Should Talk to Someone — Memoir / Psychology">
-              <div>
-                <div class="book-title">Maybe You Should Talk to Someone</div>
-                <div class="genre">🧠 Memoir / Psychology — Lori Gottlieb</div>
-              </div>
-            </label>
-            <label class="option">
-              <input type="radio" name="Book Choice" value="Tomorrow, and Tomorrow, and Tomorrow — Fiction / Creativity">
-              <div>
-                <div class="book-title">Tomorrow, and Tomorrow, and Tomorrow</div>
-                <div class="genre">🎮 Fiction / Creativity — Gabrielle Zevin</div>
-              </div>
-            </label>
-            <label class="option">
-              <input type="radio" name="Book Choice" value="Braiding Sweetgrass — Science / Indigenous Wisdom">
-              <div>
-                <div class="book-title">Braiding Sweetgrass</div>
-                <div class="genre">🍃 Science / Indigenous Wisdom — Robin Wall Kimmerer</div>
-              </div>
-            </label>
-            <label class="option">
-              <input type="radio" name="Book Choice" value="Klara and the Sun — Sci‑Fi / Philosophy">
+              <input type="radio" name="Book Choice" value="Klara and the Sun — Sci‑Fi / Literary">
               <div>
                 <div class="book-title">Klara and the Sun</div>
-                <div class="genre">🤖 Sci‑Fi / Philosophy — Kazuo Ishiguro</div>
-              </div>
-            </label>
-            <label class="option">
-              <input type="radio" name="Book Choice" value="The Book of Delights — Essays / Joy & Reflection">
-              <div>
-                <div class="book-title">The Book of Delights</div>
-                <div class="genre">🌼 Essays / Joy & Reflection — Ross Gay</div>
+                <div class="genre">🤖 Sci‑Fi / Literary — Kazuo Ishiguro · <a href="https://www.goodreads.com/book/show/54120408-klara-and-the-sun" target="_blank" rel="noopener">Goodreads</a></div>
               </div>
             </label>
           </div>
-          <p class="hint">Anonymous by default. We only record your choice—no names unless you add it below.</p>
+          <p class="hint">Anonymous by default. We only record your choice — no names unless you add it below.</p>
         </section>
 
         <section class="group">
@@ -185,7 +181,7 @@ HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet
           <div class="flex" style="margin-top:8px">
             <input type="checkbox" id="nameToggle" onchange="toggleName()" aria-label="Include my name">
             <label class="switch" for="nameToggle" title="Include my name"></label>
-            <input type="text" name="Name" id="nameField" placeholder="Your name (optional)" disabled>
+            <input type="text" name="Name" id="nameField" placeholder="Your name (optional)" disabled="">
           </div>
         </section>
       </div>
@@ -196,7 +192,8 @@ HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet
       </div>
 
       <!-- Extras -->
-      <input type="hidden" name="Source" value="sf_book_club_4_0">
+      <input type="hidden" name="Source" value="sf_book_club_v">
+      <input type="hidden" name="VoterId" id="voterIdField" value="">
     </form>
   </main>
 
@@ -213,20 +210,28 @@ HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet
   <div id="toast" class="toast" role="status" aria-live="polite">Thanks! Your response has been recorded.</div>
   <iframe name="hidden_iframe" id="hidden_iframe" style="display:none" onload="if(window._submitted){showToast(); window._submitted=false}"></iframe>
 
-  <footer>
-    Tip: If two books tie, we’ll settle it the ancient book‑club way: a coin toss judged by the nearest cat 🐈📚.
-    <br><br>
-    <a href="?results=1" style="color:var(--accent); text-decoration:underline">View results directly</a>
-  </footer>
+  <footer>Tip: If two books tie, we’ll run a quick tiebreaker poll in chat.</footer>
 
   <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwCyit4WQ3LFqiN13ZXcqYHj7-kwwn3Eb1ImBMjTPzlWEln3niy_vL-6xKIKRrIKM3G/exec';
     let _submitted = false;
+
     document.addEventListener('DOMContentLoaded', ()=>{
+      // Ensure form posts to the correct URL
       const f = document.getElementById('pollForm');
       if (f && SCRIPT_URL && SCRIPT_URL !== 'SCRIPT_URL_GOES_HERE'){
-        f.action = SCRIPT_URL; // ensure form posts to the correct URL
+        f.action = SCRIPT_URL;
       }
+      // Anonymous per-browser voter token
+      try{
+        let tok = localStorage.getItem('sfbc_voter_token');
+        if (!tok){
+          tok = (crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now()+ '-' + Math.random().toString(36).slice(2));
+          localStorage.setItem('sfbc_voter_token', tok);
+        }
+        const vf = document.getElementById('voterIdField');
+        if (vf) vf.value = tok;
+      }catch(e){ /* localStorage may be blocked */ }
     });
 
     function toggleName(){
@@ -245,9 +250,22 @@ HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet
       loadResults();
     }
 
-    function handleSubmit(){
+    async function handleSubmit(){
       const checked = document.querySelector('input[type=radio][name="Book Choice"]:checked');
       if (!checked){ alert('Please pick a book before submitting.'); return false; }
+      // Pre-check duplicate by token
+      try{
+        const voterId = document.getElementById('voterIdField')?.value || '';
+        const url = SCRIPT_URL + (SCRIPT_URL.includes('?') ? '&' : '?') + 'check=1&voterId=' + encodeURIComponent(voterId);
+        const r = await fetch(url, {method:'GET'});
+        const j = await r.json();
+        if (j && j.allowed === false){
+          alert('Looks like this browser has already voted. Showing results.');
+          document.getElementById('formCard').style.display = 'none';
+          loadResults();
+          return false;
+        }
+      }catch(e){ /* if check fails, allow submit anyway */ }
       window._submitted = true; // mark that a real submit happened
       return true;
     }
@@ -267,7 +285,6 @@ HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet
     }
 
     function renderResults(data){
-      // data = { totalVotes, tallies:{label:count}, suggestions:[{text,name}] }
       const list = document.getElementById('resultsList');
       list.innerHTML = '';
       const total = data.totalVotes || 0;
@@ -294,7 +311,7 @@ HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet
     }
 
     function escapeHtml(str){
-      return String(str||'').replace(/[&<>"]+/g, s=>({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[s]));
+      return String(str||'').replace(/[&<>\"]+/g, s=>({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[s]));
     }
 
     // If page opens with ?results=1, show results immediately
@@ -308,60 +325,81 @@ HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet
   </script>
 
   <!-- ================== GOOGLE APPS SCRIPT (paste into Code.gs in the Sheet) ==================
+  // This version writes VoterId, prevents duplicate votes from the same browser token,
+  // and returns a JSON summary for results.
   function doPost(e){
     try {
       var sheet = SpreadsheetApp.getActive().getSheetByName('Responses');
       if (!sheet){ sheet = SpreadsheetApp.getActive().insertSheet('Responses');
-        sheet.appendRow(['Timestamp','Book Choice','Suggestion','Name']);
+        sheet.appendRow(['Timestamp','Book Choice','Suggestion','Name','VoterId']);
+      }
+      // Ensure VoterId column exists even for older sheets
+      var header = sheet.getRange(1,1,1,sheet.getLastColumn()).getValues()[0];
+      if (header.indexOf('VoterId') === -1){
+        sheet.insertColumnAfter(header.length);
+        sheet.getRange(1, header.length+1).setValue('VoterId');
       }
       var p = e && e.parameter ? e.parameter : {};
       var book = p['Book Choice'] || '';
       var suggestion = p['Suggestion'] || '';
       var name = p['Name'] || '';
-      sheet.appendRow([new Date(), book, suggestion, name]);
-      return ContentService
-        .createTextOutput(JSON.stringify({status:'ok'}))
-        .setMimeType(ContentService.MimeType.JSON);
+      var voterId = p['VoterId'] || '';
+      // Block duplicate by same token
+      if (voterId){
+        var data = sheet.getDataRange().getValues();
+        var h = data.shift();
+        var idxId = h.indexOf('VoterId');
+        for (var i=0;i<data.length;i++){
+          if (String(data[i][idxId]||'').trim() === String(voterId).trim()){
+            return ContentService.createTextOutput(JSON.stringify({status:'duplicate'})).setMimeType(ContentService.MimeType.JSON);
+          }
+        }
+      }
+      sheet.appendRow([new Date(), book, suggestion, name, voterId]);
+      return ContentService.createTextOutput(JSON.stringify({status:'ok'})).setMimeType(ContentService.MimeType.JSON);
     } catch (err){
-      return ContentService
-        .createTextOutput(JSON.stringify({status:'error', message: String(err)}))
-        .setMimeType(ContentService.MimeType.JSON);
+      return ContentService.createTextOutput(JSON.stringify({status:'error', message: String(err)})).setMimeType(ContentService.MimeType.JSON);
     }
   }
 
-  // Add this to enable live results via GET
   function doGet(e){
     var sheet = SpreadsheetApp.getActive().getSheetByName('Responses');
     if (!sheet){
-      return ContentService
-        .createTextOutput(JSON.stringify({totalVotes:0, tallies:{}, suggestions:[]}))
-        .setMimeType(ContentService.MimeType.JSON);
+      return ContentService.createTextOutput(JSON.stringify({totalVotes:0, tallies:{}, suggestions:[], allowed:true})).setMimeType(ContentService.MimeType.JSON);
     }
+    var params = e && e.parameter ? e.parameter : {};
     var values = sheet.getDataRange().getValues();
     var header = values.shift();
     var idxBook = header.indexOf('Book Choice');
     var idxSuggestion = header.indexOf('Suggestion');
     var idxName = header.indexOf('Name');
-    var tallies = {};
-    var suggestions = [];
-    var total = 0;
+    var idxId = header.indexOf('VoterId');
+
+    // Pre-check path: ?check=1&voterId=...
+    if (params.check == '1'){
+      var voterId = (params.voterId || '').toString().trim();
+      var exists = false;
+      if (voterId){
+        for (var i=0;i<values.length;i++){
+          if (String(values[i][idxId]||'').trim() === voterId){ exists = true; break; }
+        }
+      }
+      return ContentService.createTextOutput(JSON.stringify({allowed: !exists})).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // Summary path
+    var tallies = {}; var suggestions = []; var total = 0;
     values.forEach(function(row){
       var book = (row[idxBook] || '').toString().trim();
       var sugg = (row[idxSuggestion] || '').toString().trim();
       var name = (row[idxName] || '').toString().trim();
-      if (book){
-        tallies[book] = (tallies[book]||0) + 1;
-        total++;
-      }
-      if (sugg){
-        suggestions.push({ text: sugg, name: name });
-      }
+      if (book){ tallies[book] = (tallies[book]||0) + 1; total++; }
+      if (sugg){ suggestions.push({ text: sugg, name: name }); }
     });
     var out = { totalVotes: total, tallies: tallies, suggestions: suggestions };
-    return ContentService
-      .createTextOutput(JSON.stringify(out))
-      .setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(JSON.stringify(out)).setMimeType(ContentService.MimeType.JSON);
   }
-  ============================================================================================ -->
-</body>
-</html>
+  ================== END GOOGLE APPS SCRIPT ================== -->
+
+
+</body></html>
