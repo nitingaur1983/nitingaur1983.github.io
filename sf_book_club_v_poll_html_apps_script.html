@@ -124,89 +124,89 @@ HOST on GitHub Pages/Netlify. BACKEND via Google Apps Script bound to your Sheet
     </div>
   </header>
 
-  <main class=\"card\" id=\"formCard\">
+  <main class="card" id="formCard">
     <!-- Replace with your Apps Script Web App URL -->
-    <form id=\"pollForm\" action=\"https://script.google.com/macros/s/AKfycbwCyit4WQ3LFqiN13ZXcqYHj7-kwwn3Eb1ImBMjTPzlWEln3niy_vL-6xKIKRrIKM3G/exec\" method=\"POST\" target=\"hidden_iframe\" onsubmit=\"return handleSubmit()\">
-      <div class=\"row\">
-        <section class=\"group\">
+    <form id="pollForm" action="https://script.google.com/macros/s/AKfycbwCyit4WQ3LFqiN13ZXcqYHj7-kwwn3Eb1ImBMjTPzlWEln3niy_vL-6xKIKRrIKM3G/exec" method="POST" target="hidden_iframe" onsubmit="return handleSubmit()">
+      <div class="row">
+        <section class="group">
           <h3>Vote for our next read</h3>
-          <div class=\"options\">
-            <label class=\"option\">
-              <input type=\"radio\" name=\"Book Choice\" value=\"The Overstory — Nature / Literary Fiction\" required>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="Book Choice" value="The Overstory — Nature / Literary Fiction" required>
               <div>
-                <div class=\"book-title\">The Overstory</div>
-                <div class=\"genre\">🌳 Nature / Literary Fiction — Richard Powers</div>
+                <div class="book-title">The Overstory</div>
+                <div class="genre">🌳 Nature / Literary Fiction — Richard Powers</div>
               </div>
             </label>
-            <label class=\"option\">
-              <input type=\"radio\" name=\"Book Choice\" value=\"Maybe You Should Talk to Someone — Memoir / Psychology\">
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Maybe You Should Talk to Someone — Memoir / Psychology">
               <div>
-                <div class=\"book-title\">Maybe You Should Talk to Someone</div>
-                <div class=\"genre\">🧠 Memoir / Psychology — Lori Gottlieb</div>
+                <div class="book-title">Maybe You Should Talk to Someone</div>
+                <div class="genre">🧠 Memoir / Psychology — Lori Gottlieb</div>
               </div>
             </label>
-            <label class=\"option\">
-              <input type=\"radio\" name=\"Book Choice\" value=\"Tomorrow, and Tomorrow, and Tomorrow — Fiction / Creativity\">
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Tomorrow, and Tomorrow, and Tomorrow — Fiction / Creativity">
               <div>
-                <div class=\"book-title\">Tomorrow, and Tomorrow, and Tomorrow</div>
-                <div class=\"genre\">🎮 Fiction / Creativity — Gabrielle Zevin</div>
+                <div class="book-title">Tomorrow, and Tomorrow, and Tomorrow</div>
+                <div class="genre">🎮 Fiction / Creativity — Gabrielle Zevin</div>
               </div>
             </label>
-            <label class=\"option\">
-              <input type=\"radio\" name=\"Book Choice\" value=\"Braiding Sweetgrass — Science / Indigenous Wisdom\">
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Braiding Sweetgrass — Science / Indigenous Wisdom">
               <div>
-                <div class=\"book-title\">Braiding Sweetgrass</div>
-                <div class=\"genre\">🍃 Science / Indigenous Wisdom — Robin Wall Kimmerer</div>
+                <div class="book-title">Braiding Sweetgrass</div>
+                <div class="genre">🍃 Science / Indigenous Wisdom — Robin Wall Kimmerer</div>
               </div>
             </label>
-            <label class=\"option\">
-              <input type=\"radio\" name=\"Book Choice\" value=\"Klara and the Sun — Sci‑Fi / Philosophy\">
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Klara and the Sun — Sci‑Fi / Philosophy">
               <div>
-                <div class=\"book-title\">Klara and the Sun</div>
-                <div class=\"genre\">🤖 Sci‑Fi / Philosophy — Kazuo Ishiguro</div>
+                <div class="book-title">Klara and the Sun</div>
+                <div class="genre">🤖 Sci‑Fi / Philosophy — Kazuo Ishiguro</div>
               </div>
             </label>
-            <label class=\"option\">
-              <input type=\"radio\" name=\"Book Choice\" value=\"The Book of Delights — Essays / Joy & Reflection\">
+            <label class="option">
+              <input type="radio" name="Book Choice" value="The Book of Delights — Essays / Joy & Reflection">
               <div>
-                <div class=\"book-title\">The Book of Delights</div>
-                <div class=\"genre\">🌼 Essays / Joy & Reflection — Ross Gay</div>
+                <div class="book-title">The Book of Delights</div>
+                <div class="genre">🌼 Essays / Joy & Reflection — Ross Gay</div>
               </div>
             </label>
           </div>
-          <p class=\"hint\">Anonymous by default. We only record your choice—no names unless you add it below.</p>
+          <p class="hint">Anonymous by default. We only record your choice—no names unless you add it below.</p>
         </section>
 
-        <section class=\"group\">
+        <section class="group">
           <h3>Suggest a book (optional)</h3>
-          <textarea name=\"Suggestion\" rows=\"6\" placeholder=\"Suggest a title/author or drop a note (anonymous by default)\"></textarea>
+          <textarea name="Suggestion" rows="6" placeholder="Suggest a title/author or drop a note (anonymous by default)"></textarea>
 
-          <div class=\"hint\" style=\"margin-top:12px\">Want to attach your name? Toggle below (optional).</div>
-          <div class=\"flex\" style=\"margin-top:8px\">
-            <input type=\"checkbox\" id=\"nameToggle\" onchange=\"toggleName()\" aria-label=\"Include my name\">
-            <label class=\"switch\" for=\"nameToggle\" title=\"Include my name\"></label>
-            <input type=\"text\" name=\"Name\" id=\"nameField\" placeholder=\"Your name (optional)\" disabled>
+          <div class="hint" style="margin-top:12px">Want to attach your name? Toggle below (optional).</div>
+          <div class="flex" style="margin-top:8px">
+            <input type="checkbox" id="nameToggle" onchange="toggleName()" aria-label="Include my name">
+            <label class="switch" for="nameToggle" title="Include my name"></label>
+            <input type="text" name="Name" id="nameField" placeholder="Your name (optional)" disabled>
           </div>
         </section>
       </div>
 
-      <div class=\"actions\">
-        <button class=\"primary\" type=\"submit\">Submit Vote</button>
-        <span class=\"ghost\">Thank you for keeping the club awesome ✨</span>
+      <div class="actions">
+        <button class="primary" type="submit">Submit Vote</button>
+        <span class="ghost">Thank you for keeping the club awesome ✨</span>
       </div>
 
       <!-- Extras -->
-      <input type=\"hidden\" name=\"Source\" value=\"sf_book_club_4_0\">
+      <input type="hidden" name="Source" value="sf_book_club_4_0">
     </form>
   </main>
 
   <!-- Results block (hidden until after submit or when opened with ?results=1) -->
-  <section id=\"results\" class=\"results\" style=\"display:none\">
+  <section id="results" class="results" style="display:none">
     <h2>Live Results</h2>
-    <div id=\"resultsList\"></div>
-    <div class=\"suggestions\">
-      <h3 style=\"margin:10px 0\">Outside Suggestions</h3>
-      <ul id=\"suggestionsList\"></ul>
+    <div id="resultsList"></div>
+    <div class="suggestions">
+      <h3 style="margin:10px 0">Outside Suggestions</h3>
+      <ul id="suggestionsList"></ul>
     </div>
   </section>
 
