@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SF Book Club V — Poll</title>
+  <meta name="description" content="Vote for the next SF Book Club read and suggest your own pick (anonymous by default)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0e0f12;
+      --card:#14161b;
+      --ink:#e8ebf1;
+      --muted:#a9b0c3;
+      --accent:#c5a572;
+      --accent-ink:#0b0c0f;
+      --ring: 2px solid rgba(197,165,114,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(197,165,114,.08), transparent 60%),
+        radial-gradient(900px 500px at 0% 100%, rgba(197,165,114,.06), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font:16px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+    header{max-width:860px;margin:32px auto 16px;padding:0 20px}
+    .title{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:44px;height:44px;border-radius:12px;
+      background:
+        linear-gradient(135deg, rgba(197,165,114,.25), rgba(197,165,114,.05)),
+        radial-gradient(70% 80% at 50% 10%, rgba(197,165,114,.55), rgba(197,165,114,.15) 60%, transparent 61%),
+        var(--card);
+      display:grid;place-items:center;
+      box-shadow:0 6px 18px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .logo span{font-family:Literata, Georgia, serif;font-size:24px}
+    h1{font:700 28px/1.1 Literata, Georgia, serif;margin:0}
+    .sub{color:var(--muted);margin-top:6px}
+
+    .card{
+      max-width:860px;margin:16px auto;padding:24px;border-radius:20px;
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)),var(--card);
+      box-shadow:0 16px 40px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .row{display:grid;gap:14px;grid-template-columns:1fr}
+    @media (min-width:720px){.row{grid-template-columns:1fr 1fr}}
+
+    .group{
+      padding:16px 18px;border-radius:16px;
+      background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
+    }
+    .group h3{
+      margin:0 0 12px;
+      font:600 14px/1 Inter,system-ui;
+      letter-spacing:.02em;color:var(--muted);text-transform:uppercase;
+    }
+
+    .options{display:grid;gap:10px}
+    label.option{
+      display:flex;gap:12px;align-items:flex-start;
+      padding:12px 14px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.07);
+      background:rgba(0,0,0,.15);cursor:pointer;
+    }
+    label.option:hover{outline:var(--ring);}
+    input[type=radio]{margin-top:3px;accent-color:var(--accent);}
+    .book-title{font-weight:600}
+    .genre{color:var(--muted);font-size:13px}
+    .genre a{color:var(--ink);opacity:.85;text-decoration:underline}
+
+    textarea,input[type=text]{
+      width:100%;padding:12px 14px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);color:var(--ink);
+    }
+    textarea:focus,input[type=text]:focus{outline:var(--ring);}
+    .hint{color:var(--muted);font-size:13px;margin-top:8px}
+
+    .flex{display:flex;align-items:center;gap:10px}
+    .switch{
+      position:relative;width:42px;height:24px;
+      background:rgba(255,255,255,.15);border-radius:999px;
+      transition:.2s;cursor:pointer;
+    }
+    .switch::after{
+      content:"";position:absolute;top:3px;left:3px;
+      width:18px;height:18px;border-radius:50%;
+      background:#fff;transition:.2s;
+    }
+    input#nameToggle:checked + .switch{background:var(--accent);}
+    input#nameToggle:checked + .switch::after{left:21px;}
+    input#nameToggle{display:none}
+
+    .actions{display:flex;gap:12px;align-items:center;justify-content:flex-start;margin-top:18px}
+    button.primary{
+      appearance:none;border:0;padding:12px 18px;border-radius:12px;
+      font-weight:600;
+      background:linear-gradient(180deg,#e9cf9e,#c5a572);
+      color:var(--accent-ink);
+      box-shadow:0 10px 22px rgba(197,165,114,.25),inset 0 0 0 1px rgba(0,0,0,.12);
+      cursor:pointer;
+    }
+    button.primary:active{transform:translateY(1px)}
+    .ghost{color:var(--muted);font-size:14px}
+
+    .toast{
+      position:fixed;inset:auto 16px 16px auto;
+      background:#101215;border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;border-radius:12px;
+      opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;
+    }
+    .toast.show{opacity:1;transform:translateY(0)}
+
+    footer{
+      max-width:860px;margin:24px auto 40px;padding:0 20px;
+      color:var(--muted);font-size:13px;
+    }
+    footer a{color:var(--accent);text-decoration:underline}
+
+    /* Results */
+    .results{
+      max-width:860px;margin:16px auto;padding:24px;border-radius:20px;
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)),var(--card);
+      box-shadow:0 16px 40px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .results h2{font:700 22px/1.2 Literata,Georgia,serif;margin:0 0 14px}
+    .result-row{margin:10px 0}
+    .bar{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;}
+    .bar>span{display:block;height:100%;background:linear-gradient(180deg,#e9cf9e,#c5a572)}
+    .label-line{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--ink);margin-bottom:6px}
+    .suggestions{margin-top:16px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">
+      <div class="logo" aria-hidden="true"><span>📚</span></div>
+      <div>
+        <h1>SF Book Club V — Poll</h1>
+        <div class="sub">
+          We’ll pick <strong>one book</strong> for the next meetup, and still keep the
+          <em>Favorite / Last Read</em> segment for new joiners or anyone who prefers that.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="card" id="formCard">
+    <!-- 1️⃣ REPLACE action WITH YOUR SCRIPT URL -->
+    <form id="pollForm" action="https://script.google.com/macros/s/AKfycbyYBL8nBMAAe7nDA5K0kf9zZ5-BcR5H8t-m6oD5kizpiac9IoUwhCqd7h3miKK3ogna/exec" method="POST" target="hidden_iframe" onsubmit="return handleSubmit()">
+      <div class="row">
+        <section class="group">
+          <h3>Vote for our next read</h3>
+          <div class="options">
+
+            <!-- 1. I, Robot -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="I, Robot — Sci-Fi / Short Stories" required>
+              <div>
+                <div class="book-title">I, Robot</div>
+                <div class="genre">
+                  🔧 Sci-Fi / Short Stories — Isaac Asimov ·
+                  <a href="https://www.goodreads.com/book/show/41804.I_Robot" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 2. How I Tried to Be a Good Person -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="How I Tried to Be a Good Person — Graphic Memoir / Nonfiction">
+              <div>
+                <div class="book-title">How I Tried to Be a Good Person</div>
+                <div class="genre">
+                  🖍️ Graphic Memoir / Nonfiction — Ulli Lust ·
+                  <a href="https://www.goodreads.com/book/show/42185914-how-i-tried-to-be-a-good-person" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 3. Project Hail Mary -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Project Hail Mary — Sci-Fi / Hard Science">
+              <div>
+                <div class="book-title">Project Hail Mary</div>
+                <div class="genre">
+                  🚀 Sci-Fi / Hard Science — Andy Weir ·
+                  <a href="https://www.goodreads.com/book/show/54493401-project-hail-mary" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 4. When Nietzsche Wept -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="When Nietzsche Wept — Historical Fiction / Psychology">
+              <div>
+                <div class="book-title">When Nietzsche Wept</div>
+                <div class="genre">
+                  🧠 Historical Fiction / Psychology — Irvin D. Yalom ·
+                  <a href="https://www.goodreads.com/book/show/21031.When_Nietzsche_Wept" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 5. All the Colors of the Dark -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="All the Colors of the Dark — Thriller / Mystery">
+              <div>
+                <div class="book-title">All the Colors of the Dark</div>
+                <div class="genre">
+                  🕵️ Thriller / Mystery — Chris Whitaker ·
+                  <a href="https://www.goodreads.com/book/show/215153740-all-the-colors-of-the-dark" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 6. Inner Engineering -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Inner Engineering — Spirituality / Self-Help">
+              <div>
+                <div class="book-title">Inner Engineering: A Yogi's Guide to Joy</div>
+                <div class="genre">
+                  🧘 Spirituality / Self-Help — Sadhguru ·
+                  <a href="https://www.goodreads.com/book/show/29513878-inner-engineering" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 7. The Dangers of Smoking in Bed -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="The Dangers of Smoking in Bed — Horror / Short Stories">
+              <div>
+                <div class="book-title">The Dangers of Smoking in Bed</div>
+                <div class="genre">
+                  👻 Horror / Short Stories — Mariana Enríquez ·
+                  <a href="https://www.goodreads.com/book/show/53215250-the-dangers-of-smoking-in-bed" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 8. Perfume -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Perfume: The Story of a Murderer — Historical Fiction / Psychological Thriller">
+              <div>
+                <div class="book-title">Perfume: The Story of a Murderer</div>
+                <div class="genre">
+                  🫗 Historical Fiction / Psychological Thriller — Patrick Süskind ·
+                  <a href="https://www.goodreads.com/book/show/343.Perfume" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 9. Convenience Store Woman -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Convenience Store Woman — Contemporary / Literary Fiction">
+              <div>
+                <div class="book-title">Convenience Store Woman</div>
+                <div class="genre">
+                  🥢 Contemporary / Literary Fiction — Sayaka Murata ·
+                  <a href="https://www.goodreads.com/book/show/36739755-convenience-store-woman" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 10. The Overstory -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="The Overstory — Literary Fiction / Nature">
+              <div>
+                <div class="book-title">The Overstory</div>
+                <div class="genre">
+                  🌳 Literary Fiction / Nature — Richard Powers ·
+                  <a href="https://www.goodreads.com/book/show/40180098-the-overstory" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+            <!-- 11. Klara and the Sun -->
+            <label class="option">
+              <input type="radio" name="Book Choice" value="Klara and the Sun — Sci-Fi / Literary">
+              <div>
+                <div class="book-title">Klara and the Sun</div>
+                <div class="genre">
+                  🤖 Sci-Fi / Literary — Kazuo Ishiguro ·
+                  <a href="https://www.goodreads.com/book/show/54120408-klara-and-the-sun" target="_blank" rel="noopener">Goodreads</a>
+                </div>
+              </div>
+            </label>
+
+          </div>
+          <p class="hint">Anonymous by default. We only record your choice — no names unless you add it below.</p>
+        </section>
+
+        <section class="group">
+          <h3>Suggest a book (optional)</h3>
+          <textarea name="Suggestion" rows="6" placeholder="Suggest a title/author or drop a note (anonymous by default)"></textarea>
+
+          <div class="hint" style="margin-top:12px">Want to attach your name? Toggle below (optional).</div>
+          <div class="flex" style="margin-top:8px">
+            <input type="checkbox" id="nameToggle" onchange="toggleName()" aria-label="Include my name">
+            <label class="switch" for="nameToggle" title="Include my name"></label>
+            <input type="text" name="Name" id="nameField" placeholder="Your name (optional)" disabled>
+          </div>
+        </section>
+      </div>
+
+      <div class="actions">
+        <button class="primary" type="submit">Submit Vote</button>
+        <span class="ghost">Thank you for keeping the club awesome ✨</span>
+      </div>
+
+      <input type="hidden" name="Source" value="sf_book_club_v">
+      <input type="hidden" name="VoterId" id="voterIdField" value="">
+    </form>
+  </main>
+
+  <section id="results" class="results" style="display:none">
+    <h2>Live Results</h2>
+    <div id="resultsList"></div>
+    <div class="suggestions">
+      <h3 style="margin:10px 0">Outside Suggestions</h3>
+      <ul id="suggestionsList"></ul>
+    </div>
+  </section>
+
+  <div id="toast" class="toast" role="status">Thanks! Your response has been recorded.</div>
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none" onload="if(window._submitted){showToast(); window._submitted=false}"></iframe>
+
+  <footer>
+    Tip: If two books tie, we’ll settle it the ancient book-club way: a coin toss judged by the nearest cat 🐈📚.
+    <br><br>
+    <a href="?results=1">View results directly</a>
+  </footer>
+
+  <script>
+    // 2️⃣ REPLACE THIS WITH THE SAME SCRIPT URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYBL8nBMAAe7nDA5K0kf9zZ5-BcR5H8t-m6oD5kizpiac9IoUwhCqd7h3miKK3ogna/exec';
+    let _submitted = false;
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // make sure the form actually posts to the script
+      const f = document.getElementById('pollForm');
+      if (f && SCRIPT_URL && SCRIPT_URL !== 'SCRIPT_URL_GOES_HERE') {
+        f.action = SCRIPT_URL;
+      }
+
+      // anonymous per-browser token
+      try {
+        let tok = localStorage.getItem('sfbc_voter_token');
+        if (!tok) {
+          tok = (crypto && crypto.randomUUID)
+            ? crypto.randomUUID()
+            : (Date.now() + '-' + Math.random().toString(36).slice(2));
+          localStorage.setItem('sfbc_voter_token', tok);
+        }
+        const vf = document.getElementById('voterIdField');
+        if (vf) vf.value = tok;
+      } catch(e) { /* ignore */ }
+    });
+
+    function toggleName(){
+      const t = document.getElementById('nameToggle');
+      const f = document.getElementById('nameField');
+      f.disabled = !t.checked;
+      if (!t.checked){ f.value = ''; }
+    }
+
+    function showToast(){
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(()=> toast.classList.remove('show'), 2000);
+      document.getElementById('formCard').style.display = 'none';
+      loadResults();
+    }
+
+    async function handleSubmit(){
+      const checked = document.querySelector('input[type=radio][name="Book Choice"]:checked');
+      if (!checked){
+        alert('Please pick a book before submitting.');
+        return false;
+      }
+
+      // pre-check for duplicate
+      try {
+        const voterId = document.getElementById('voterIdField')?.value || '';
+        const url = SCRIPT_URL + (SCRIPT_URL.includes('?') ? '&' : '?') +
+                    'check=1&voterId=' + encodeURIComponent(voterId);
+        const r = await fetch(url, {method:'GET'});
+        const j = await r.json();
+        if (j && j.allowed === false) {
+          alert('Looks like this browser has already voted. Showing results.');
+          document.getElementById('formCard').style.display = 'none';
+          loadResults();
+          return false;
+        }
+      } catch(e) {
+        // if check fails, we still submit; backend will enforce duplicate rule
+      }
+
+      window._submitted = true; 
+      return true;
+    }
+
+    async function loadResults(){
+      try {
+        const url = SCRIPT_URL + (SCRIPT_URL.includes('?') ? '&' : '?') + 'summary=1';
+        const res = await fetch(url, {method:'GET'});
+        const data = await res.json();
+        renderResults(data);
+        document.getElementById('results').style.display = 'block';
+      } catch(err) {
+        console.error(err);
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('resultsList').innerHTML =
+          '<p class="hint">Could not load results right now.</p>';
+      }
+    }
+
+    function renderResults(data){
+      const list = document.getElementById('resultsList');
+      list.innerHTML = '';
+      const total = data.totalVotes || 0;
+      const entries = Object.entries(data.tallies || {}).sort((a,b)=> b[1]-a[1]);
+
+      entries.forEach(([label,count])=>{
+        const pct = total ? Math.round((count/total)*100) : 0;
+        const row = document.createElement('div');
+        row.className = 'result-row';
+        row.innerHTML = `
+          <div class="label-line"><span>${label}</span><span>${pct}% (${count})</span></div>
+          <div class="bar"><span style="width:${pct}%"></span></div>
+        `;
+        list.appendChild(row);
+      });
+
+      const suggUL = document.getElementById('suggestionsList');
+      suggUL.innerHTML = '';
+      (data.suggestions || []).forEach(s=>{
+        const li = document.createElement('li');
+        const who = s.name ? ` — <em>${escapeHtml(s.name)}</em>` : '';
+        li.innerHTML = `${escapeHtml(s.text)}${who}`;
+        suggUL.appendChild(li);
+      });
+    }
+
+    function escapeHtml(str){
+      return String(str||'').replace(/[&<>"]/g, s=>(
+        { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[s]
+      ));
+    }
+
+    // open directly in results mode with ?results=1
+    (function(){
+      const params = new URLSearchParams(location.search);
+      if (params.get('results') === '1'){
+        document.getElementById('formCard').style.display = 'none';
+        loadResults();
+      }
+    })();
+  </script>
+</body>
+</html>
