@@ -666,7 +666,8 @@
       const allowed = await checkDuplicateVote();
 
       if (!allowed) {
-        showMessage('A vote from this browser or name has already been recorded. Showing results.', 'error');
+        alert('You have already voted. This second vote was not recorded.');
+
         document.getElementById('formCard').style.display = 'none';
         loadResults();
         return;
