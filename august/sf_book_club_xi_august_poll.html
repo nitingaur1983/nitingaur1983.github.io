@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SF Book Club XI — August Poll</title>
+  <meta name="description" content="Vote for up to four books for SF Book Club XI on August 16, 2026." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0e0f12;
+      --card:#14161b;
+      --ink:#e8ebf1;
+      --muted:#a9b0c3;
+      --accent:#c5a572;
+      --accent-ink:#0b0c0f;
+      --danger:#ef8f8f;
+      --success:#9ed7ae;
+      --ring:2px solid rgba(197,165,114,.35);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(197,165,114,.08), transparent 60%),
+        radial-gradient(900px 500px at 0% 100%, rgba(197,165,114,.06), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+      font:16px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
+
+    header{
+      max-width:920px;
+      margin:32px auto 16px;
+      padding:0 20px;
+    }
+
+    .title{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      background:
+        linear-gradient(135deg,rgba(197,165,114,.25),rgba(197,165,114,.05)),
+        radial-gradient(70% 80% at 50% 10%,rgba(197,165,114,.55),rgba(197,165,114,.15) 60%,transparent 61%),
+        var(--card);
+      display:grid;
+      place-items:center;
+      box-shadow:0 6px 18px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+
+    .logo span{font-family:Literata,Georgia,serif;font-size:24px}
+
+    h1{
+      font:700 28px/1.1 Literata,Georgia,serif;
+      margin:0;
+    }
+
+    .sub{
+      color:var(--muted);
+      margin-top:6px;
+    }
+
+    .card,
+    .results{
+      max-width:920px;
+      margin:16px auto;
+      padding:24px;
+      border-radius:20px;
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)),var(--card);
+      box-shadow:0 16px 40px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+
+    .group{
+      padding:16px 18px;
+      border-radius:16px;
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .group h3{
+      margin:0 0 8px;
+      font:600 14px/1 Inter,system-ui;
+      letter-spacing:.02em;
+      color:var(--muted);
+      text-transform:uppercase;
+    }
+
+    .selection-count{
+      margin:0 0 8px;
+      color:var(--accent);
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .vote-reminder{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .options{display:grid;gap:10px}
+
+    label.option{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.07);
+      background:rgba(0,0,0,.15);
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    label.option:hover{outline:var(--ring)}
+
+    label.option.selected{
+      border-color:rgba(197,165,114,.72);
+      background:rgba(197,165,114,.08);
+      box-shadow:inset 3px 0 0 var(--accent);
+    }
+
+    input[type=checkbox]{
+      margin-top:5px;
+      accent-color:var(--accent);
+      width:17px;
+      height:17px;
+      flex:0 0 auto;
+    }
+
+    .book-title{font-weight:700;font-size:16px}
+    .book-author{margin-top:2px;color:var(--muted);font-size:13px}
+
+    details{margin-top:8px}
+
+    details summary{
+      display:inline-flex;
+      color:var(--accent);
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+      list-style:none;
+    }
+
+    details summary::-webkit-details-marker{display:none}
+    details summary::after{content:" +"}
+    details[open] summary::after{content:" −"}
+
+    .genre-text,
+    .description-text{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+      white-space:pre-wrap;
+    }
+
+    .goodreads-line{margin-top:10px;font-size:13px}
+
+    .goodreads-line a{
+      color:var(--ink);
+      opacity:.88;
+      text-decoration:underline;
+    }
+
+    input[type=text]{
+      width:100%;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);
+      color:var(--ink);
+      font:inherit;
+    }
+
+    input[type=text]:focus{outline:var(--ring)}
+
+    .name-area{
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.07);
+    }
+
+    .name-area label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:600;
+    }
+
+    .hint{color:var(--muted);font-size:13px;margin-top:8px}
+
+    .message{
+      min-height:22px;
+      margin-top:14px;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .message.error{color:var(--danger)}
+    .message.success{color:var(--success)}
+
+    .actions{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:flex-start;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
+
+    button.primary{
+      appearance:none;
+      border:0;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:600;
+      background:linear-gradient(180deg,#e9cf9e,#c5a572);
+      color:var(--accent-ink);
+      box-shadow:0 10px 22px rgba(197,165,114,.25),inset 0 0 0 1px rgba(0,0,0,.12);
+      cursor:pointer;
+    }
+
+    button.primary:active{transform:translateY(1px)}
+    button.primary:disabled{opacity:.58;cursor:wait}
+
+    .ghost{color:var(--muted);font-size:14px}
+
+    .toast{
+      position:fixed;
+      inset:auto 16px 16px auto;
+      background:#101215;
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      border-radius:12px;
+      opacity:0;
+      transform:translateY(8px);
+      transition:.25s;
+      pointer-events:none;
+    }
+
+    .toast.show{opacity:1;transform:translateY(0)}
+
+    .results{display:none}
+
+    .results h2{
+      font:700 22px/1.2 Literata,Georgia,serif;
+      margin:0 0 8px;
+    }
+
+    .results-note{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .result-row{margin:13px 0}
+
+    .label-line{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      font-size:14px;
+      color:var(--ink);
+      margin-bottom:6px;
+    }
+
+    .label-line span:first-child{max-width:72%}
+
+    .bar{
+      height:12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+
+    .bar > span{
+      display:block;
+      height:100%;
+      background:linear-gradient(180deg,#e9cf9e,#c5a572);
+      transition:width .4s ease;
+    }
+
+    footer{
+      max-width:920px;
+      margin:24px auto 40px;
+      padding:0 20px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    footer a{color:var(--accent);text-decoration:underline}
+
+    @media(max-width:600px){
+      .card,.results{margin-left:12px;margin-right:12px;padding:16px}
+      header{margin-top:22px}
+      .label-line{font-size:13px}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="title">
+      <div class="logo" aria-hidden="true"><span>📚</span></div>
+      <div>
+        <h1>SF Book Club XI — Poll</h1>
+        <div class="sub">
+          Choose up to <strong>four books</strong> for our meetup on
+          <strong>Sunday, August 16, 2026</strong>.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="card" id="formCard">
+    <form id="pollForm" action="https://script.google.com/macros/s/AKfycbyV0qe3vUBCTNxYqxQiXRhtQUonUl0l_z_cYrdUtWAtqbqE1uiGirvbFFIBOO-F-yIP/exec" method="POST">
+      <section class="group">
+        <h3>Vote for our next read</h3>
+        <p id="selectionCount" class="selection-count">0 of 4 selected</p>
+        <p class="vote-reminder">
+          Reminder: you have the chance to vote for up to <strong>4 books</strong>.
+          You can still submit 1, 2, or 3 if those are the only ones you want.
+        </p>
+
+        <div id="bookOptions" class="options">
+          <p class="hint">Loading book options…</p>
+        </div>
+
+        <p class="hint">
+          If you submit fewer than four choices, the poll will ask you to confirm before recording your vote.
+        </p>
+
+        <div class="name-area">
+          <label for="nameField">Your name</label>
+          <input type="text" name="Name" id="nameField" maxlength="80" placeholder="Enter your name" required>
+          <p class="hint">Used to identify your ballot and help prevent duplicate voting.</p>
+        </div>
+      </section>
+
+      <div id="message" class="message" role="alert" aria-live="polite"></div>
+
+      <div class="actions">
+        <button class="primary" id="submitButton" type="submit">Submit Vote</button>
+        <span class="ghost">Choose only the books you would genuinely be happy to read ✨</span>
+      </div>
+
+      <input type="hidden" name="Source" value="sf_book_club_xi_august">
+      <input type="hidden" name="VoterId" id="voterIdField" value="">
+    </form>
+  </main>
+
+  <section id="results" class="results">
+    <h2>Live Results</h2>
+    <p class="results-note">
+      Each percentage is the share of submitted ballots that included that book.
+      Since voters may choose up to four books, the percentages will not add up to 100%.
+    </p>
+    <div id="resultsList"></div>
+  </section>
+
+  <div id="toast" class="toast" role="status">
+    Thanks! Your response has been recorded.
+  </div>
+
+  <footer>
+    If two books tie, we’ll settle it the ancient book-club way:
+    a coin toss judged by the nearest cat 🐈📚.
+    <br><br>
+    <a href="?results=1">View results directly</a>
+  </footer>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyV0qe3vUBCTNxYqxQiXRhtQUonUl0l_z_cYrdUtWAtqbqE1uiGirvbFFIBOO-F-yIP/exec';
+    const MAX_SELECTIONS = 4;
+    const STORAGE_PREFIX = 'sfbc_xi_2026_08_16';
+
+    let books = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const form = document.getElementById('pollForm');
+
+      if (SCRIPT_URL && SCRIPT_URL !== 'SCRIPT_URL_GOES_HERE') {
+        form.action = SCRIPT_URL;
+      }
+
+      initializeVoterId();
+      form.addEventListener('submit', handleSubmit);
+
+      const params = new URLSearchParams(location.search);
+
+      if (params.get('results') === '1') {
+        document.getElementById('formCard').style.display = 'none';
+        await loadBooks();
+        await loadResults();
+        return;
+      }
+
+      if (hasVotedLocally()) {
+        alert('You have already voted from this browser. Additional votes will not be recorded.');
+        document.getElementById('formCard').style.display = 'none';
+        await loadBooks();
+        await loadResults();
+        return;
+      }
+
+      await loadBooks();
+      await checkExistingVoteOnLoad();
+    });
+
+    function initializeVoterId() {
+      try {
+        let token = localStorage.getItem(`${STORAGE_PREFIX}_voter_token`);
+
+        if (!token) {
+          token = (window.crypto && crypto.randomUUID)
+            ? crypto.randomUUID()
+            : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+          localStorage.setItem(`${STORAGE_PREFIX}_voter_token`, token);
+        }
+
+        document.getElementById('voterIdField').value = token;
+      } catch (error) {
+        document.getElementById('voterIdField').value =
+          `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      }
+    }
+
+    async function loadBooks() {
+      if (!SCRIPT_URL || SCRIPT_URL === 'SCRIPT_URL_GOES_HERE') {
+        document.getElementById('bookOptions').innerHTML =
+          '<p class="hint">Replace SCRIPT_URL_GOES_HERE with your Apps Script Web App URL.</p>';
+        return;
+      }
+
+      try {
+        const url =
+          SCRIPT_URL +
+          (SCRIPT_URL.includes('?') ? '&' : '?') +
+          `books=1&_=${Date.now()}`;
+
+        const response = await fetch(url, { method:'GET', cache:'no-store' });
+        const data = await response.json();
+
+        books = data.books || [];
+        renderBookOptions();
+      } catch (error) {
+        console.error(error);
+        document.getElementById('bookOptions').innerHTML =
+          '<p class="hint">Could not load book options right now.</p>';
+      }
+    }
+
+    function renderBookOptions() {
+      const container = document.getElementById('bookOptions');
+
+      if (!books.length) {
+        container.innerHTML = '<p class="hint">No book options found in the books_august sheet.</p>';
+        return;
+      }
+
+      container.innerHTML = books.map(book => `
+        <label class="option">
+          <input type="checkbox" name="Book Choice" value="${escapeAttribute(book.bookName)}">
+          <div>
+            <div class="book-title">${escapeHtml(book.bookName)}</div>
+            <div class="book-author">by ${escapeHtml(book.authorName || 'Unknown author')}</div>
+
+            ${book.genre ? `
+              <details>
+                <summary>Genre</summary>
+                <div class="genre-text">${escapeHtml(book.genre)}</div>
+              </details>
+            ` : ''}
+
+            ${book.briefDescription ? `
+              <details>
+                <summary>Brief description</summary>
+                <div class="description-text">${escapeHtml(book.briefDescription)}</div>
+              </details>
+            ` : ''}
+
+            ${book.goodreadLink ? `
+              <div class="goodreads-line">
+                <a href="${escapeAttribute(book.goodreadLink)}" target="_blank" rel="noopener noreferrer">Goodreads</a>
+              </div>
+            ` : ''}
+          </div>
+        </label>
+      `).join('');
+
+      document.querySelectorAll('input[name="Book Choice"]').forEach(input => {
+        input.addEventListener('change', event => {
+          const selected = getSelectedChoices();
+
+          if (selected.length > MAX_SELECTIONS) {
+            event.target.checked = false;
+            alert(`You can choose up to ${MAX_SELECTIONS} books.`);
+          }
+
+          clearMessage();
+          updateSelectionCount();
+          updateSelectedStyles();
+        });
+      });
+
+      document.querySelectorAll('.goodreads-line a').forEach(link => {
+        link.addEventListener('click', event => event.stopPropagation());
+      });
+    }
+
+    function getSelectedChoices() {
+      return [...document.querySelectorAll('input[name="Book Choice"]:checked')]
+        .map(input => input.value);
+    }
+
+    function updateSelectionCount() {
+      const count = getSelectedChoices().length;
+      document.getElementById('selectionCount').textContent =
+        `${count} of ${MAX_SELECTIONS} selected`;
+    }
+
+    function updateSelectedStyles() {
+      document.querySelectorAll('label.option').forEach(label => {
+        const checkbox = label.querySelector('input[type="checkbox"]');
+        label.classList.toggle('selected', checkbox.checked);
+      });
+    }
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      clearMessage();
+
+      if (!SCRIPT_URL || SCRIPT_URL === 'SCRIPT_URL_GOES_HERE') {
+        showMessage('Replace SCRIPT_URL_GOES_HERE with your Apps Script Web App URL.', 'error');
+        return;
+      }
+
+      if (hasVotedLocally()) {
+        alert('You have already voted. This vote was not recorded.');
+        document.getElementById('formCard').style.display = 'none';
+        loadResults();
+        return;
+      }
+
+      const choices = getSelectedChoices();
+      const name = document.getElementById('nameField').value.trim();
+
+      if (choices.length === 0) {
+        showMessage('Please choose at least one book. You may select up to four.', 'error');
+        return;
+      }
+
+      if (choices.length > MAX_SELECTIONS) {
+        showMessage('Please choose no more than four books.', 'error');
+        return;
+      }
+
+      if (!name) {
+        showMessage('Please enter your name.', 'error');
+        document.getElementById('nameField').focus();
+        return;
+      }
+
+      if (choices.length < MAX_SELECTIONS) {
+        const confirmed = window.confirm(
+          `You selected ${choices.length} book${choices.length === 1 ? '' : 's'}. ` +
+          `You may choose up to ${MAX_SELECTIONS}. Submit this ballot as it is?`
+        );
+
+        if (!confirmed) return;
+      }
+
+      const allowed = await checkDuplicateVote();
+
+      if (!allowed) {
+        alert('You have already voted. This second vote was not recorded.');
+        localStorage.setItem(`${STORAGE_PREFIX}_submitted`, 'true');
+        document.getElementById('formCard').style.display = 'none';
+        loadResults();
+        return;
+      }
+
+      submitFormAsJson();
+    }
+
+    async function checkExistingVoteOnLoad() {
+      try {
+        const allowed = await checkDuplicateVote();
+
+        if (!allowed) {
+          localStorage.setItem(`${STORAGE_PREFIX}_submitted`, 'true');
+          alert('You have already voted from this browser. Additional votes will not be recorded.');
+          document.getElementById('formCard').style.display = 'none';
+          loadResults();
+        }
+      } catch (error) {
+        console.error('Could not check existing vote:', error);
+      }
+    }
+
+    async function checkDuplicateVote() {
+      try {
+        const voterId = document.getElementById('voterIdField').value;
+        const name = document.getElementById('nameField').value.trim();
+
+        const url =
+          SCRIPT_URL +
+          (SCRIPT_URL.includes('?') ? '&' : '?') +
+          `check=1&voterId=${encodeURIComponent(voterId)}&name=${encodeURIComponent(name)}`;
+
+        const response = await fetch(url, { method:'GET', cache:'no-store' });
+        const data = await response.json();
+
+        return data.allowed !== false;
+      } catch (error) {
+        return true;
+      }
+    }
+
+    async function submitFormAsJson() {
+      const submitButton = document.getElementById('submitButton');
+      submitButton.disabled = true;
+      submitButton.textContent = 'Submitting…';
+
+      const payload = {
+        action:'submitVote',
+        name:document.getElementById('nameField').value.trim(),
+        choices:getSelectedChoices(),
+        voterId:document.getElementById('voterIdField').value,
+        source:'sf_book_club_xi_august'
+      };
+
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method:'POST',
+          headers:{'Content-Type':'text/plain;charset=utf-8'},
+          body:JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+          const message = String(data.message || '');
+
+          if (
+            message.toLowerCase().includes('already') ||
+            message.toLowerCase().includes('duplicate')
+          ) {
+            alert('You have already voted. This vote was not recorded.');
+            localStorage.setItem(`${STORAGE_PREFIX}_submitted`, 'true');
+            document.getElementById('formCard').style.display = 'none';
+            loadResults();
+            return;
+          }
+
+          throw new Error(message || 'The vote could not be submitted.');
+        }
+
+        localStorage.setItem(`${STORAGE_PREFIX}_submitted`, 'true');
+        showToast();
+        document.getElementById('formCard').style.display = 'none';
+        renderResults(data);
+      } catch (error) {
+        console.error(error);
+        showMessage(error.message || 'Something went wrong. Please try again.', 'error');
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit Vote';
+      }
+    }
+
+    function hasVotedLocally() {
+      try {
+        return localStorage.getItem(`${STORAGE_PREFIX}_submitted`) === 'true';
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function showMessage(text, type) {
+      const message = document.getElementById('message');
+      message.textContent = text;
+      message.className = `message ${type}`;
+    }
+
+    function clearMessage() {
+      const message = document.getElementById('message');
+      message.textContent = '';
+      message.className = 'message';
+    }
+
+    async function loadResults() {
+      try {
+        const url =
+          SCRIPT_URL +
+          (SCRIPT_URL.includes('?') ? '&' : '?') +
+          `summary=1&_=${Date.now()}`;
+
+        const response = await fetch(url, { method:'GET', cache:'no-store' });
+        const data = await response.json();
+
+        renderResults(data);
+      } catch (error) {
+        console.error(error);
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('resultsList').innerHTML =
+          '<p class="hint">Could not load results right now.</p>';
+      }
+    }
+
+    function renderResults(data) {
+      const results = data.results || data;
+      const total = Number(results.totalVotes || results.totalBallots || 0);
+      const tallies = results.tallies || results.counts || {};
+      const list = document.getElementById('resultsList');
+
+      list.innerHTML = '';
+
+      const resultBooks = books.length
+        ? books.map(book => book.bookName)
+        : Object.keys(tallies);
+
+      resultBooks.forEach(title => {
+        const count = Number(tallies[title] || 0);
+        const percentage = total ? (count / total) * 100 : 0;
+
+        const row = document.createElement('div');
+        row.className = 'result-row';
+        row.innerHTML = `
+          <div class="label-line">
+            <span>${escapeHtml(title)}</span>
+            <span>${percentage.toFixed(1)}% (${count})</span>
+          </div>
+          <div class="bar">
+            <span style="width:${Math.min(percentage,100)}%"></span>
+          </div>
+        `;
+
+        list.appendChild(row);
+      });
+
+      document.getElementById('results').style.display = 'block';
+    }
+
+    function escapeHtml(value) {
+      return String(value || '').replace(/[&<>"]/g, character => (
+        {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[character]
+      ));
+    }
+
+    function escapeAttribute(value) {
+      return String(value || '').replace(/[&<>"']/g, character => (
+        {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[character]
+      ));
+    }
+  </script>
+</body>
+</html>
