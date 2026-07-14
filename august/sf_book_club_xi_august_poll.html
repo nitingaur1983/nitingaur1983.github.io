@@ -143,27 +143,32 @@
     .book-title{font-weight:700;font-size:16px}
     .book-author{margin-top:2px;color:var(--muted);font-size:13px}
 
-    details{margin-top:8px}
-
-    details summary{
-      display:inline-flex;
-      color:var(--accent);
-      font-size:13px;
-      font-weight:600;
-      cursor:pointer;
-      list-style:none;
+    .genre-chip-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:9px;
     }
 
-    details summary::-webkit-details-marker{display:none}
-    details summary::after{content:" +"}
-    details[open] summary::after{content:" −"}
+    .genre-chip{
+      display:inline-flex;
+      align-items:center;
+      max-width:100%;
+      padding:4px 8px;
+      border-radius:999px;
+      background:rgba(197,165,114,.12);
+      border:1px solid rgba(197,165,114,.28);
+      color:#e4cfaa;
+      font-size:12px;
+      font-weight:600;
+      line-height:1.25;
+    }
 
-    .genre-text,
-    .description-text{
-      margin-top:6px;
+    .description-block{
+      margin-top:10px;
       color:var(--muted);
       font-size:13px;
-      line-height:1.55;
+      line-height:1.58;
       white-space:pre-wrap;
     }
 
@@ -479,17 +484,13 @@
             <div class="book-author">by ${escapeHtml(book.authorName || 'Unknown author')}</div>
 
             ${book.genre ? `
-              <details>
-                <summary>Genre</summary>
-                <div class="genre-text">${escapeHtml(book.genre)}</div>
-              </details>
+              <div class="genre-chip-list" aria-label="Genres">
+                ${renderGenreChips(book.genre)}
+              </div>
             ` : ''}
 
             ${book.briefDescription ? `
-              <details>
-                <summary>Brief description</summary>
-                <div class="description-text">${escapeHtml(book.briefDescription)}</div>
-              </details>
+              <div class="description-block">${escapeHtml(book.briefDescription)}</div>
             ` : ''}
 
             ${book.goodreadLink ? `
@@ -542,9 +543,11 @@
     async function handleSubmit(event) {
       event.preventDefault();
       clearMessage();
+      setSubmitting(true);
 
       if (!SCRIPT_URL || SCRIPT_URL === 'SCRIPT_URL_GOES_HERE') {
         showMessage('Replace SCRIPT_URL_GOES_HERE with your Apps Script Web App URL.', 'error');
+        setSubmitting(false);
         return;
       }
 
@@ -560,17 +563,20 @@
 
       if (choices.length === 0) {
         showMessage('Please choose at least one book. You may select up to four.', 'error');
+        setSubmitting(false);
         return;
       }
 
       if (choices.length > MAX_SELECTIONS) {
         showMessage('Please choose no more than four books.', 'error');
+        setSubmitting(false);
         return;
       }
 
       if (!name) {
         showMessage('Please enter your name.', 'error');
         document.getElementById('nameField').focus();
+        setSubmitting(false);
         return;
       }
 
@@ -580,7 +586,10 @@
           `You may choose up to ${MAX_SELECTIONS}. Submit this ballot as it is?`
         );
 
-        if (!confirmed) return;
+        if (!confirmed) {
+          setSubmitting(false);
+          return;
+        }
       }
 
       const allowed = await checkDuplicateVote();
@@ -631,9 +640,7 @@
     }
 
     async function submitFormAsJson() {
-      const submitButton = document.getElementById('submitButton');
-      submitButton.disabled = true;
-      submitButton.textContent = 'Submitting…';
+      setSubmitting(true);
 
       const payload = {
         action:'submitVote',
@@ -676,9 +683,23 @@
       } catch (error) {
         console.error(error);
         showMessage(error.message || 'Something went wrong. Please try again.', 'error');
-        submitButton.disabled = false;
-        submitButton.textContent = 'Submit Vote';
+        setSubmitting(false);
       }
+    }
+
+    function setSubmitting(isSubmitting) {
+      const submitButton = document.getElementById('submitButton');
+      submitButton.disabled = isSubmitting;
+      submitButton.textContent = isSubmitting ? 'Submitting…' : 'Submit Vote';
+    }
+
+    function renderGenreChips(genreValue) {
+      return String(genreValue || '')
+        .split(',')
+        .map(genre => genre.trim())
+        .filter(Boolean)
+        .map(genre => `<span class="genre-chip">${escapeHtml(genre)}</span>`)
+        .join('');
     }
 
     function hasVotedLocally() {
