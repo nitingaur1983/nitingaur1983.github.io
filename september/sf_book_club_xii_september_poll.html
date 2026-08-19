@@ -4,8 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SF Book Club XII — September Poll</title>
-  <meta name="description" content="Vote for up to four books for SF Book Club XII on September 27, 2026." />
+  <meta name="description" content="Vote for up to two books for SF Book Club XII on September 27, 2026." />
 
+  <link rel="preconnect" href="https://script.google.com">
+  <link rel="preconnect" href="https://script.googleusercontent.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap" rel="stylesheet">
@@ -322,7 +324,7 @@
       <div>
         <h1>SF Book Club XII — Poll</h1>
         <div class="sub">
-          Choose up to <strong>four books</strong> for our meetup on
+          Choose up to <strong>two books</strong> for our meetup on
           <strong>Sunday, September 27, 2026</strong>.
         </div>
       </div>
@@ -336,7 +338,7 @@
         <p id="selectionCount" class="selection-count">0 of 4 selected</p>
         <p class="vote-reminder">
           Reminder: you have the chance to vote for up to <strong>2 books</strong>.
-          You can still submit only 1 if those are the only ones you want.
+          You can still submit only 1 if that's the only one you want.
         </p>
 
         <div id="bookOptions" class="options">
@@ -344,7 +346,7 @@
         </div>
 
         <p class="hint">
-          If you submit fewer than four choices, the poll will ask you to confirm before recording your vote.
+          If you submit only one choice, the poll will ask you to confirm before recording your vote.
         </p>
 
         <div class="name-area">
@@ -370,7 +372,7 @@
     <h2>Live Results</h2>
     <p class="results-note">
       Each percentage is the share of submitted ballots that included that book.
-      Since voters may choose up to four books, the percentages will not add up to 100%.
+      Since voters may choose up to two books, the percentages will not add up to 100%.
     </p>
     <div id="resultsList"></div>
   </section>
@@ -421,7 +423,6 @@
       }
 
       await loadBooks();
-      await checkExistingVoteOnLoad();
     });
 
     function initializeVoterId() {
@@ -562,13 +563,13 @@
       const name = document.getElementById('nameField').value.trim();
 
       if (choices.length === 0) {
-        showMessage('Please choose at least one book. You may select up to four.', 'error');
+        showMessage(`Please choose at least one book. You may select up to ${MAX_SELECTIONS}.`, 'error');
         setSubmitting(false);
         return;
       }
 
       if (choices.length > MAX_SELECTIONS) {
-        showMessage('Please choose no more than four books.', 'error');
+        showMessage(`Please choose no more than ${MAX_SELECTIONS} books.`, 'error');
         setSubmitting(false);
         return;
       }
@@ -592,51 +593,7 @@
         }
       }
 
-      const allowed = await checkDuplicateVote();
-
-      if (!allowed) {
-        alert('You have already voted. This second vote was not recorded.');
-        localStorage.setItem(`${STORAGE_PREFIX}_submitted`, 'true');
-        document.getElementById('formCard').style.display = 'none';
-        loadResults();
-        return;
-      }
-
       submitFormAsJson();
-    }
-
-    async function checkExistingVoteOnLoad() {
-      try {
-        const allowed = await checkDuplicateVote();
-
-        if (!allowed) {
-          localStorage.setItem(`${STORAGE_PREFIX}_submitted`, 'true');
-          alert('You have already voted from this browser. Additional votes will not be recorded.');
-          document.getElementById('formCard').style.display = 'none';
-          loadResults();
-        }
-      } catch (error) {
-        console.error('Could not check existing vote:', error);
-      }
-    }
-
-    async function checkDuplicateVote() {
-      try {
-        const voterId = document.getElementById('voterIdField').value;
-        const name = document.getElementById('nameField').value.trim();
-
-        const url =
-          SCRIPT_URL +
-          (SCRIPT_URL.includes('?') ? '&' : '?') +
-          `check=1&voterId=${encodeURIComponent(voterId)}&name=${encodeURIComponent(name)}`;
-
-        const response = await fetch(url, { method:'GET', cache:'no-store' });
-        const data = await response.json();
-
-        return data.allowed !== false;
-      } catch (error) {
-        return true;
-      }
     }
 
     async function submitFormAsJson() {
@@ -679,7 +636,7 @@
         localStorage.setItem(`${STORAGE_PREFIX}_submitted`, 'true');
         showToast();
         document.getElementById('formCard').style.display = 'none';
-        renderResults(data);
+        loadResults();
       } catch (error) {
         console.error(error);
         showMessage(error.message || 'Something went wrong. Please try again.', 'error');
